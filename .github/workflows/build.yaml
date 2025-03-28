@@ -9,12 +9,14 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
 
-    permissions:  # Dodajte ovo
-      contents: write  # Omogućava pisanje u repozitorijum
+    permissions:
+      contents: write  # Neophodno za push promena
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Važno za git push
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -28,10 +30,10 @@ jobs:
       - name: Run scraper
         run: python main.py
 
-      - name: Commit updated sent_ads.txt
+      - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add sent_ads.txt
-          git commit -m "Update sent_ads.txt" || echo "No changes to commit"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update sent_ads.txt"
           git push
