@@ -15,7 +15,7 @@ import time
 
 # Konfiguracija
 URL = "https://www.bhansa.gov.ba/bs/bhansa/konkursi-za-posao"
-EMAIL = "vuk.bojic2023@gmail.com"
+EMAIL = "rade.bojic@yahoo.com"
 SENT_ADS_FILE = "sent_bhansa_ads.txt"
 WAIT_TIMEOUT = 30
 

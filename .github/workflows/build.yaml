@@ -1,0 +1,37 @@
+name: Run Ad Scraper
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Pokreće se svakih 5 minuta
+  workflow_dispatch:  # Omogućava ručno pokretanje
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    permissions:  # Dodajte ovo
+      contents: write  # Omogućava pisanje u repozitorijum
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python main.py
+
+      - name: Commit updated sent_ads.txt
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add sent_ads.txt
+          git commit -m "Update sent_ads.txt" || echo "No changes to commit"
+          git push
