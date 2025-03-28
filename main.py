@@ -159,9 +159,10 @@ def ucitaj_poslate_oglasa():
 
 # Funkcija za čuvanje poslatih oglasa u fajl
 def sacuvaj_poslate_oglasa(poslednji_oglasi):
+    print(f"Čuvam oglase u {SENT_ADS_FILE}...")
     with open(SENT_ADS_FILE, "w", encoding="utf-8") as f:
         f.write("\n".join(poslednji_oglasi))
-
+    print("Oglasi uspešno sačuvani!")
 # Glavna funkcija
 def main():
     # Provera da li fajl postoji, ako ne, kreiraj ga
